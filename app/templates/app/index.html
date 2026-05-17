@@ -1,0 +1,59 @@
+{% extends 'app/base.html' %}
+
+{% block title %}Dashboard - Nexus Cloud{% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+    <!-- Welcome banner -->
+    <div class="relative bg-slate-900 rounded-2xl p-8 border border-slate-800 overflow-hidden shadow-2xl">
+        <div class="absolute right-0 top-0 opacity-10 text-9xl p-4 font-mono select-none pointer-events-none">CI/CD</div>
+        <h1 class="text-3xl font-extrabold text-white mb-2">🚀 Live Infrastructure Diagnostic</h1>
+        <p class="text-slate-400 max-w-3xl">Continuous Integration and Deployment analytics hub. Monitoring health matrices, system configurations, and artifact builds directly from the AWS deployment container environment.</p>
+    </div>
+
+    <!-- Cluster Performance Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+            <div class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Cluster Status</div>
+            <div class="text-2xl font-black text-emerald-400">HEALTHY</div>
+            <div class="text-xs text-slate-500 mt-2"><i class="fa-solid fa-circle text-emerald-500 mr-1 animate-pulse"></i> Zero errors flagged</div>
+        </div>
+        <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+            <div class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Build Pipeline</div>
+            <div class="text-2xl font-black text-cyan-400">Jenkins Automation</div>
+            <div class="text-xs text-slate-500 mt-2">Webhook trigger linked</div>
+        </div>
+        <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+            <div class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Containerization</div>
+            <div class="text-2xl font-black text-indigo-400">Docker Isolated</div>
+            <div class="text-xs text-slate-500 mt-2">Image: django-app:latest</div>
+        </div>
+        <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+            <div class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Host Provider</div>
+            <div class="text-2xl font-black text-amber-400">AWS Cloud Host</div>
+            <div class="text-xs text-slate-500 mt-2">EC2 Compute Infrastructure</div>
+        </div>
+    </div>
+
+    <!-- Runtime Environment Breakdown -->
+    <div class="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden shadow-lg">
+        <div class="px-6 py-4 bg-slate-900/50 border-b border-slate-800 flex justify-between items-center">
+            <h3 class="font-bold text-base text-white flex items-center"><i class="fa-solid fa-gears mr-2 text-cyan-400"></i> Environmental Settings</h3>
+        </div>
+        <div class="p-6 divide-y divide-slate-800">
+            <div class="flex justify-between py-3 text-sm">
+                <span class="text-slate-400 font-medium">Interpreter Instance</span>
+                <span class="font-mono text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded"><i class="fa-brands fa-python mr-1"></i> v{{ python_version }}</span>
+            </div>
+            <div class="flex justify-between py-3 text-sm">
+                <span class="text-slate-400 font-medium">Framework Engine</span>
+                <span class="font-mono text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded">Django {{ django_version }}</span>
+            </div>
+            <div class="flex justify-between py-3 text-sm">
+                <span class="text-slate-400 font-medium">Container Timestamp (UTC)</span>
+                <span class="font-mono text-emerald-400"><i class="fa-regular fa-clock mr-1"></i> {{ server_time }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

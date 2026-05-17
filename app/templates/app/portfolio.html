@@ -1,0 +1,41 @@
+{% extends 'app/base.html' %}
+
+{% block title %}Project Registry - Nexus Cloud{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <div class="border-b border-slate-800 pb-4">
+        <h1 class="text-2xl font-extrabold text-white">🗂 Systems Project Registry</h1>
+        <p class="text-sm text-slate-400">Dynamic architecture listings running underneath or simulated within this cluster.</p>
+    </div>
+
+    <!-- Dynamic Grid for Projects -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Project 1 -->
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl hover:border-slate-700 transition-all">
+            <div class="flex justify-between items-start mb-4">
+                <h3 class="text-lg font-bold text-white">Automated Library Logistics Engine</h3>
+                <span class="text-xs font-mono px-2 py-0.5 bg-cyan-500/10 text-cyan-400 rounded-full border border-cyan-500/20">Data Engine</span>
+            </div>
+            <p class="text-sm text-slate-400 mb-4">Structured C++ framework leveraging complex non-linear structures and memory-safe references to execute immediate asset queues and circulation management schemas seamlessly.</p>
+            <div class="flex space-x-3 text-xs text-slate-500">
+                <span><i class="fa-solid fa-code mr-1"></i> C++ Stack</span>
+                <span><i class="fa-solid fa-bolt mr-1"></i> Active Testing</span>
+            </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-xl hover:border-slate-700 transition-all">
+            <div class="flex justify-between items-start mb-4">
+                <h3 class="text-lg font-bold text-white">Global Pandemic Telemetry Database</h3>
+                <span class="text-xs font-mono px-2 py-0.5 bg-indigo-500/10 text-indigo-400 rounded-full border border-indigo-500/20">Analytics Engine</span>
+            </div>
+            <p class="text-sm text-slate-400 mb-4">Heavy-compute automated analytics suite aggregating multidimensional data streams. Processes records through structural algorithmic paradigms to dynamically visualize regional vector shifts.</p>
+            <div class="flex space-x-3 text-xs text-slate-500">
+                <span><i class="fa-solid fa-chart-line mr-1"></i> Pandas / NumPy</span>
+                <span><i class="fa-solid fa-database mr-1"></i> Static Engine</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
