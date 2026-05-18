@@ -1,59 +1,186 @@
 {% extends 'app/base.html' %}
-
-{% block title %}Dashboard - Nexus Cloud{% endblock %}
-
+{% block title %}NEXUS_DEPLOY: Smart City Console{% endblock %}
 {% block content %}
-<div class="space-y-8">
-    <!-- Welcome banner -->
-    <div class="relative bg-slate-900 rounded-2xl p-8 border border-slate-800 overflow-hidden shadow-2xl">
-        <div class="absolute right-0 top-0 opacity-10 text-9xl p-4 font-mono select-none pointer-events-none">CI/CD</div>
-        <h1 class="text-3xl font-extrabold text-white mb-2">🚀 Live Infrastructure Diagnostic</h1>
-        <p class="text-slate-400 max-w-3xl">Continuous Integration and Deployment analytics hub. Monitoring health matrices, system configurations, and artifact builds directly from the AWS deployment container environment.</p>
-    </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Cluster Performance Stats -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
-            <div class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Cluster Status</div>
-            <div class="text-2xl font-black text-emerald-400">HEALTHY</div>
-            <div class="text-xs text-slate-500 mt-2"><i class="fa-solid fa-circle text-emerald-500 mr-1 animate-pulse"></i> Zero errors flagged</div>
-        </div>
-        <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
-            <div class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Build Pipeline</div>
-            <div class="text-2xl font-black text-cyan-400">Jenkins Automation</div>
-            <div class="text-xs text-slate-500 mt-2">Webhook trigger linked</div>
-        </div>
-        <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
-            <div class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Containerization</div>
-            <div class="text-2xl font-black text-indigo-400">Docker Isolated</div>
-            <div class="text-xs text-slate-500 mt-2">Image: django-app:latest</div>
-        </div>
-        <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
-            <div class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Host Provider</div>
-            <div class="text-2xl font-black text-amber-400">AWS Cloud Host</div>
-            <div class="text-xs text-slate-500 mt-2">EC2 Compute Infrastructure</div>
+<div id="print-area" class="container-fluid py-4" style="color: #f8fafc; background-color: #020617; min-height: 100vh; font-family: system-ui, sans-serif;">
+    
+    <div class="row mb-4">
+        <div class="col-12 flex justify-between items-center bg-slate-900 rounded-2xl p-5 border border-slate-800 shadow-2xl">
+            <div>
+                <h1 class="text-2xl font-black text-white">🛰️ NEXUS_CORE: AI-Powered Intelligent Urban Traffic Grid</h1>
+                <p class="text-slate-400 text-xs mt-1">Multi-layered architecture syncing Sklearn Random Forest Engine, Real-time Database Logs & Heuristic Directives.</p>
+            </div>
+            <button onclick="window.print()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-xl text-xs shadow-md transition">
+                📥 Download Executive PDF Report
+            </button>
         </div>
     </div>
 
-    <!-- Runtime Environment Breakdown -->
-    <div class="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden shadow-lg">
-        <div class="px-6 py-4 bg-slate-900/50 border-b border-slate-800 flex justify-between items-center">
-            <h3 class="font-bold text-base text-white flex items-center"><i class="fa-solid fa-gears mr-2 text-cyan-400"></i> Environmental Settings</h3>
+    <div class="row px-2">
+        <div class="col-xl-4 col-lg-5 mb-4">
+            <div class="bg-slate-900 rounded-2xl p-5 border border-slate-800 shadow-2xl">
+                <h3 class="text-md font-bold text-amber-400 mb-4 flex items-center gap-2 border-b border-slate-800 pb-2">🕹️ Live Control Inputs</h3>
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="block text-slate-400 text-xs font-bold mb-1">Target Junction Location</label>
+                        <select name="junction_id" class="w-full bg-slate-950 text-white rounded-lg p-2.5 border border-slate-800 text-xs">
+                            <option value="1" {% if user_inputs.junction_id == 1 %}selected{% endif %}>Junction Alpha (J1)</option>
+                            <option value="2" {% if user_inputs.junction_id == 2 %}selected{% endif %}>Junction Bravo (J2)</option>
+                            <option value="3" {% if user_inputs.junction_id == 3 %}selected{% endif %}>Junction Charlie (J3)</option>
+                            <option value="4" {% if user_inputs.junction_id == 4 %}selected{% endif %}>Junction Delta (J4)</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="block text-slate-400 text-xs font-bold mb-1">Timeline Axis (Hour 0-23)</label>
+                        <input type="number" name="hour" class="w-full bg-slate-950 text-white rounded-lg p-2.5 border border-slate-800 text-xs" min="0" max="23" value="{{ user_inputs.hour|default:12 }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="block text-slate-400 text-xs font-bold mb-1">Day Matrix Schedule</label>
+                        <select name="is_weekend" class="w-full bg-slate-950 text-white rounded-lg p-2.5 border border-slate-800 text-xs">
+                            <option value="0" {% if user_inputs.is_weekend == 0 %}selected{% endif %}>Standard Weekday</option>
+                            <option value="1" {% if user_inputs.is_weekend == 1 %}selected{% endif %}>Weekend Operational Profile</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="block text-slate-400 text-xs font-bold mb-1">Atmospheric Index</label>
+                        <select name="weather" class="w-full bg-slate-950 text-white rounded-lg p-2.5 border border-slate-800 text-xs">
+                            <option value="0" {% if user_inputs.weather == 0 %}selected{% endif %}>Clear / Standard Visibility</option>
+                            <option value="1" {% if user_inputs.weather == 1 %}selected{% endif %}>Heavy Rain Obstruction</option>
+                            <option value="2" {% if user_inputs.weather == 2 %}selected{% endif %}>Thick Fog / Smog Profile</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-slate-400 text-xs font-bold mb-1">Live Vehicle Loop Count</label>
+                        <input type="number" name="vehicle_count" class="w-full bg-slate-950 text-white rounded-lg p-2.5 border border-slate-800 text-xs" min="0" value="{{ user_inputs.vehicle_count|default:25 }}" required>
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-2.5 px-4 rounded-xl transition text-xs shadow-md">
+                        🚀 Run Systems Telemetry Match
+                    </button>
+                </form>
+            </div>
         </div>
-        <div class="p-6 divide-y divide-slate-800">
-            <div class="flex justify-between py-3 text-sm">
-                <span class="text-slate-400 font-medium">Interpreter Instance</span>
-                <span class="font-mono text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded"><i class="fa-brands fa-python mr-1"></i> v{{ python_version }}</span>
+
+        <div class="col-xl-8 col-lg-7 mb-4">
+            <div class="grid grid-cols-1 gap-4">
+                
+                <div class="bg-slate-900 rounded-2xl p-5 border border-slate-800 shadow-2xl">
+                    <h3 class="text-xs font-bold uppercase text-slate-500 tracking-wider mb-4 border-b border-slate-800 pb-2">🚦 Simulated Physical Intersection Node</h3>
+                    <div class="flex flex-col md:flex-row items-center justify-around gap-6 py-1">
+                        <div class="bg-slate-950 p-4 rounded-3xl border-4 border-slate-800 flex flex-col gap-3 shadow-2xl" style="width: 80px;">
+                            <div class="w-12 h-12 rounded-full {% if severity_color == 'red' %}bg-rose-500 shadow-[0_0_20px_#f43f5e]{% else %}bg-slate-950/40{% endif %}"></div>
+                            <div class="w-12 h-12 rounded-full {% if severity_color == 'orange' %}bg-amber-400 shadow-[0_0_20px_#f59e0b]{% else %}bg-slate-950/40{% endif %}"></div>
+                            <div class="w-12 h-12 rounded-full {% if severity_color == 'green' or not prediction_result %}bg-emerald-500 shadow-[0_0_20px_#10b981]{% else %}bg-slate-950/40{% endif %}"></div>
+                        </div>
+                        <div class="text-left md:w-2/3">
+                            <span class="text-xs font-bold text-slate-500 uppercase tracking-widest font-mono">Telemetry Node Response time: {{ latency }}ms</span>
+                            <h2 class="text-xl font-black mt-1 {% if severity_color == 'green' or not prediction_result %}text-emerald-400{% elif severity_color == 'orange' %}text-amber-400{% else %}text-rose-400{% endif %}">
+                                {{ prediction_result|default:"LOW TRAFFIC (Normal Flow)" }}
+                            </h2>
+                            
+                            <div class="mt-3 p-3.5 bg-slate-950 rounded-xl border border-slate-800 flex items-center justify-between">
+                                <div>
+                                    <p class="text-[10px] text-slate-500 uppercase font-mono">Dynamic Timer Vector Strategy</p>
+                                    <p class="text-xs font-bold text-white mt-0.5">{{ suggested_timer|default:"Keep Green Light for 15 Seconds" }}</p>
+                                </div>
+                                <div class="text-right">
+                                    <div id="countdown-box" class="text-2xl font-mono font-black text-blue-400 px-3 py-0.5 bg-slate-900 rounded-lg border border-slate-800">15</div>
+                                    <span class="text-[9px] text-slate-500 font-mono block">Seconds Left</span>
+                                </div>
+                            </div>
+
+                            <div class="mt-3 p-3 rounded-xl border border-blue-900/30 bg-slate-950" style="background: linear-gradient(135deg, #090d16 0%, #111026 100%);">
+                                <p class="text-[10px] uppercase font-bold text-cyan-400 flex items-center gap-1">⚙️ Automated Control Room Directive <span class="ml-auto font-mono text-[8px] text-slate-600">Core Engine Active</span></p>
+                                <p class="text-xs text-slate-300 italic mt-1 text-left">
+                                    "{{ ai_insight|default:'Node J1 Strategic Framework Alert: Density levels recorded. Standard signal vector loop operational.' }}"
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-slate-900 rounded-2xl p-4 border border-slate-800 shadow-2xl"><h4 class="text-[11px] font-bold text-cyan-400 uppercase mb-2">📈 System Load Trends</h4><div style="height: 140px;"><canvas id="lineChart"></canvas></div></div>
+                    <div class="bg-slate-900 rounded-2xl p-4 border border-slate-800 shadow-2xl"><h4 class="text-[11px] font-bold text-purple-400 uppercase mb-2">📊 Network Cluster Weights</h4><div style="height: 140px;"><canvas id="barChart"></canvas></div></div>
+                </div>
             </div>
-            <div class="flex justify-between py-3 text-sm">
-                <span class="text-slate-400 font-medium">Framework Engine</span>
-                <span class="font-mono text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded">Django {{ django_version }}</span>
-            </div>
-            <div class="flex justify-between py-3 text-sm">
-                <span class="text-slate-400 font-medium">Container Timestamp (UTC)</span>
-                <span class="font-mono text-emerald-400"><i class="fa-regular fa-clock mr-1"></i> {{ server_time }}</span>
+        </div>
+    </div>
+
+    <div class="row px-2 mt-2">
+        <div class="col-12">
+            <div class="bg-slate-900 rounded-2xl p-5 border border-slate-800 shadow-2xl">
+                <h3 class="text-sm font-bold text-cyan-400 mb-3 border-b border-slate-800 pb-2 uppercase tracking-wider">📋 Central Database Transaction History Logs</h3>
+                <div class="table-responsive" style="max-height: 250px; overflow-y: auto;">
+                    <table class="w-full text-left border-collapse text-xs text-slate-300">
+                        <thead>
+                            <tr class="bg-slate-950 text-slate-500 border-b border-slate-800 font-bold uppercase tracking-wider text-[10px]">
+                                <th class="p-2.5">Timestamp</th><th class="p-2.5">Node Location</th><th class="p-2.5">Hour Timeline</th><th class="p-2.5">Tail Count</th><th class="p-2.5">ML System Prediction Output Vector</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if past_logs %}
+                                {% for log in past_logs %}
+                                    <tr class="border-b border-slate-800 hover:bg-slate-950/40 transition">
+                                        <td class="p-2.5 text-slate-500 font-mono">{{ log.timestamp|date:"Y-m-d H:i:s" }}</td>
+                                        <td class="p-2.5 font-semibold text-white">Junction {{ log.junction_id }}</td>
+                                        <td class="p-2.5 font-mono text-slate-400">{{ log.hour }}:00</td>
+                                        <td class="p-2.5 font-mono text-purple-400 font-bold">{{ log.vehicle_count }}</td>
+                                        <td class="p-2.5">
+                                            {% if "LOW" in log.prediction_output %}<span class="text-emerald-400">🟢 {{ log.prediction_output }}</span>
+                                            {% elif "MEDIUM" in log.prediction_output %}<span class="text-amber-500">🟠 {{ log.prediction_output }}</span>
+                                            {% else %}<span class="text-rose-400 font-bold">🔴 {{ log.prediction_output }}</span>{% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr><td colspan="5" class="text-center py-4 text-slate-500 font-mono">No telemetry logs tracked in the sqlite local node cluster stack.</td></tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    let timer = 15;
+    {% if severity_color == 'orange' %} timer = 35; {% elif severity_color == 'red' %} timer = 60; {% endif %}
+    
+    const targetBox = document.getElementById('countdown-box');
+    if (targetBox) {
+        targetBox.innerText = timer;
+        const interval = setInterval(() => {
+            timer--;
+            targetBox.innerText = timer;
+            if(timer <= 0) {
+                clearInterval(interval);
+                targetBox.innerText = "00";
+                window.location.reload();
+            }
+        }, 1000);
+    }
+
+    const ctxLine = document.getElementById('lineChart').getContext('2d');
+    new Chart(ctxLine, {
+        type: 'line',
+        data: {
+            labels: Array.from({length: 24}, (_, i) => `${i}:00`),
+            datasets: [{ data: {{ hourly_trends|safe }}, borderColor: '#22d3ee', backgroundColor: 'rgba(34, 211, 238, 0.01)', borderWidth: 1.5, tension: 0.4, fill: true }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#475569', font: { size: 7 } } }, y: { grid: { color: '#0f172a' }, ticks: { color: '#475569', font: { size: 7 } } } } }
+    });
+
+    const ctxBar = document.getElementById('barChart').getContext('2d');
+    new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+            labels: ['J1 Alpha', 'J2 Bravo', 'J3 Charlie', 'J4 Delta'],
+            datasets: [{ data: {{ junction_loads|safe }}, backgroundColor: ['#3b82f6', '#a855f7', '#ec4899', '#f59e0b'], borderRadius: 3 }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#475569', font: { size: 7 } } }, y: { grid: { color: '#0f172a' }, ticks: { color: '#475569', font: { size: 7 } } } } }
+    });
+</script>
 {% endblock %}

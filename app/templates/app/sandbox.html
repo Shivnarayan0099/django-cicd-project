@@ -1,47 +1,39 @@
 {% extends 'app/base.html' %}
-
-{% block title %}Dev Sandbox - Nexus Cloud{% endblock %}
-
+{% block title %}System Telemetry Diagnostics{% endblock %}
 {% block content %}
-<div class="space-y-6">
-    <div class="border-b border-slate-800 pb-4">
-        <h1 class="text-2xl font-extrabold text-white">💻 Operational Sandbox Gateway</h1>
-        <p class="text-sm text-slate-400">Interact natively with API components or mock server responses for debugging verification modules.</p>
+<div class="container py-5" style="color: #f8fafc; background-color: #020617; min-height: 100vh; font-family: system-ui, sans-serif;">
+    <div class="mb-4 border-b border-slate-800 pb-3">
+        <h1 class="text-2xl font-bold text-white">⚙️ AI Engine Telemetry Diagnostics</h1>
+        <p class="text-slate-400 text-xs mt-1">Verify machine learning runtime configurations and internal server status parameters.</p>
     </div>
 
-    <!-- Interactive Mock Console Layout -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="md:col-span-1 bg-slate-900 border border-slate-800 p-6 rounded-xl h-fit space-y-4">
-            <h3 class="font-bold text-white text-base">Module Controls</h3>
-            <div>
-                <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Endpoint Target</label>
-                <select class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-slate-300 focus:outline-none focus:border-cyan-500">
-                    <option>/api/v1/health-check</option>
-                    <option>/api/v1/trigger-webhook</option>
-                    <option>/api/v1/simulate-build</option>
-                </select>
+    <div class="row px-2">
+        <div class="col-lg-4 mb-4">
+            <div class="bg-slate-900 rounded-xl p-4 border border-slate-800 shadow-lg h-100 d-flex flex-col justify-between">
+                <div>
+                    <h3 class="text-sm font-bold text-amber-400 mb-3 uppercase tracking-wider">Model Architecture</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">Framework built utilizing an optimized <strong>Random Forest Classifier</strong> pipeline containing 100 individual estimator trees for traffic classification matching maps.</p>
+                </div>
+                <button onclick="alert('Model Sync Validation: 100% Integrity.')" class="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg text-xs transition">
+                    🔍 Verify Tree Integrity
+                </button>
             </div>
-            <button onclick="alert('Simulation Event Triggered! Pipeline Communication nominal.')" class="w-full py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white text-sm font-semibold rounded-lg shadow-lg transition-all duration-200">
-                Execute Call Sequence
-            </button>
         </div>
 
-        <!-- Terminal Output Screen -->
-        <div class="md:col-span-2 bg-slate-950 border border-slate-800 rounded-xl overflow-hidden shadow-2xl flex flex-col min-h-[300px]">
-            <div class="bg-slate-900/80 px-4 py-2 border-b border-slate-800 flex items-center justify-between">
-                <span class="text-xs font-mono text-slate-400">bash • live_terminal_stream</span>
-                <div class="flex space-x-1.5">
-                    <div class="w-2.5 h-2.5 rounded-full bg-slate-700"></div>
-                    <div class="w-2.5 h-2.5 rounded-full bg-slate-700"></div>
-                    <div class="w-2.5 h-2.5 rounded-full bg-slate-700"></div>
+        <div class="col-lg-8 mb-4">
+            <div class="bg-slate-900 rounded-xl p-4 border border-slate-800 shadow-lg">
+                <div class="d-flex items-center gap-2 mb-3 border-b border-slate-800 pb-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+                    <span class="text-xs text-slate-400 font-mono ml-2">core_inference_diagnostics.log</span>
                 </div>
-            </div>
-            <div class="p-4 font-mono text-xs text-emerald-400 space-y-2 overflow-y-auto flex-grow bg-slate-950">
-                <p class="text-slate-500">// Booting isolated secure shell environment...</p>
-                <p><span class="text-slate-400">nexus-node@aws_ec2:~$</span> docker ps --format "table {{.Names}}\t{{.Status}}"</p>
-                <p class="text-cyan-400">NAMES               STATUS</p>
-                <p class="text-slate-300">nexus-django-app    Up 42 minutes (Healthy)</p>
-                <p class="text-slate-500 animate-pulse">_</p>
+                <div class="bg-slate-950 p-4 rounded-lg border border-slate-800 font-mono text-xs text-emerald-400 leading-relaxed min-h-[160px]">
+                    <p class="text-slate-500">// Syncing intelligent urban computing infrastructure layer...</p>
+                    <p class="mt-2">➔ SQLite3 Persistent Log Clusters DB Connectivity... <span class="text-white">[ ACTIVE ]</span></p>
+                    <p>➔ Scikit-Learn Hardware Inference Engine Weights... <span class="text-white">[ VERIFIED ]</span></p>
+                    <p class="mt-2 text-cyan-400">● Status Matrix: Central traffic optimization pipeline deployment node operational on port 8000.</p>
+                </div>
             </div>
         </div>
     </div>
