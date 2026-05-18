@@ -23,3 +23,6 @@ EXPOSE 8000
 
 # 8. Container start hote hi Django server chalane ki command
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+# Database migrate karo aur phir server chalu karo
+CMD python manage.py migrate && python manage.py runserver 0.0.0.0:10000
