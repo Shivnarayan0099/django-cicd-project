@@ -48,3 +48,18 @@ django-cicd-project/
 ├── manage.py                   # Django Administrative Entrypoint
 ├── requirements.txt            # System Pinpoint Dependencies
 └── traffic_prediction_model.pkl # Trained Scikit-Learn Predictive Brain
+
+stages {
+    stage('Source Checkout') { 
+        // Automatically fetches the fresh codebase commits from the GitHub repository.
+    }
+    stage('Environment Build') { 
+        // Installs required python workspace dependencies mapped in requirements.txt.
+    }
+    stage('Docker Compilation') { 
+        // Builds a fresh isolated microservice container image layers using Dockerfile.
+    }
+    stage('Live Micro-Deployment') { 
+        // Drops legacy container stacks and deploys a fresh container instance on active routing ports.
+    }
+}
